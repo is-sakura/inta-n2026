@@ -1,0 +1,33 @@
+<!--画像-->
+<div class="quiz-question">
+    <h2>Q1. このポケモンの なまえは？</h2>
+    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/747.png" alt="なぞのポケモン">
+</div>
+
+<!--ヒント-->
+<div class="quiz-info" [formGroup]="form">
+    <div class="info-row">
+      <label>タイプ：</label>
+      <input formControlName="types" readonly>
+    </div>
+    <div class="info-row">
+      <label>しんか：</label>
+      <input formControlName="evolutions" readonly>
+    </div>
+    <div class="info-row">
+      <label>とくせい：</label>
+      <input formControlName="abilities" readonly>
+    </div>
+    <div class="info-row">
+      <label>かくれとくせい：</label>
+      <input formControlName="hiddenAbilities" readonly>
+    </div>
+</div>
+
+<!--答え-->
+<div class="quiz-answer">
+    <button>アシマリ</button>
+    <button>シズクモ</button>
+    <button>ヒドイデ</button>
+    <button>スターミー</button>
+</div>
