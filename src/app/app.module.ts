@@ -9,6 +9,7 @@ import { PagesComponent } from './pages/pages.component';
 import { HttpClientModule } from '@angular/common/http';
 
 
+
 @NgModule({
   declarations: [AppComponent, PagesComponent],
   imports: [
