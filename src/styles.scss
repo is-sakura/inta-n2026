@@ -2,7 +2,18 @@
 
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
-  body {
-    font-family: 'うずらフォント', sans-serif;
+  @font-face {
+    font-family: 'UzuraFont';
+    src: url('/assets/fonts/uzura.ttf') format('truetype');
   }
+
+
+  body {
+    font-family: 'UzuraFont', sans-serif !important;
+  }
+
+    button, input, select, textarea {
+    font-family: inherit;
+  }
+
 
