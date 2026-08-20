@@ -9,13 +9,15 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 })
   export class ConfirmComponent implements OnInit {
     isCorrect = false;
+    title?: string;
+
 
     constructor(public bsModalRef: BsModalRef) {}
 
     ngOnInit(): void {
       setTimeout(() => {
         this.bsModalRef.hide();
-      }, 1000);
+      }, 1500);
     }
 
 

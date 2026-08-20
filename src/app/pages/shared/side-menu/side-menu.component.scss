@@ -1,0 +1,44 @@
+
+  :host {
+    display: block;
+    width: 220px;
+    flex-shrink: 0;
+    
+    color: #fff;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+
+  .nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+  }
+
+  .nav-list li {
+    margin-bottom: 8px;
+  }
+
+  .nav-list a {
+    color: #e352b5;
+    text-decoration: none;
+    display: block;
+    padding: 8px 12px;
+    border-radius: 4px;
+  }
+
+  .nav-list a.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-weight: bold;
+  }
+
+  .bgm-toggle {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: none;
+    background-color: #79b6ff;
+    color: #2b2b3d;
+    font-weight: bold;
+    cursor: pointer;
+  }

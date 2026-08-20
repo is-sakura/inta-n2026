@@ -1,0 +1,29 @@
+
+  .home-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+  }
+
+  .home-container {
+    position: relative;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .trainer-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 50px;
+    white-space: nowrap;
+    text-align: center;
+    -webkit-text-stroke: 0.5px rgb(0, 0, 0);
+    color: rgb(255, 170, 113);
+  }
+

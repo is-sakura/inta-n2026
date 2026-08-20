@@ -1,0 +1,19 @@
+.pokeball {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 12px;
+    display: block;
+    object-fit: contain;
+    animation: pokeball-catch 1.2s ease;
+  }
+  @keyframes pokeball-catch {
+    0%   { transform: rotate(0deg) translateY(0); }
+    20%  { transform: rotate(45deg) translateY(0); }
+    40%  { transform: rotate(-45deg) translateY(0); }
+    60%  { transform: rotate(0deg) translateY(0); }
+    80%  { transform: rotate(0deg) translateY(-20px); }
+    100% { transform: rotate(0deg) translateY(0); }
+  }
+.text-center {
+    padding: 30px 24px;
+  }

@@ -1,3 +1,13 @@
-<p>pages works!</p>
+  <!-- pages.component.html -->
+  <app-header></app-header>
+  
 
-<router-outlet />
+  <div id="bgm-player" style="display:none;"></div>
+
+    <div class="app-body">
+      <app-side-menu></app-side-menu>
+      <main class="app-content">
+        <router-outlet></router-outlet>
+      </main>
+    </div>
+

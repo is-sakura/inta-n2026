@@ -2,7 +2,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component } from '@angular/core';
 import { DataService } from '../../shared/data.service';
 import { ConfirmService } from '../../shared/modal/confirm.service';
-
+import { getGenerationIndex, REGION_NAMES } from '../../shared/region';
+import { pickRandomSize, SIZE_SCALES, PokemonSize } from '../../shared/size';
+import { TitleBadgeService } from '../../shared/title-badge.service';
 
 
 @Component({
@@ -36,10 +38,19 @@ import { ConfirmService } from '../../shared/modal/confirm.service';
     color4 = 'btn-warning';
     correctAnswer!: string; 
     isLoading = false;
+    pokemonSize!: PokemonSize;
+    imageScale = 1;
+    badgeTitle$ = this.titleBadgeService.title$;
 
     register(selected: string): void {
       const isCorrect = selected === this.correctAnswer;
-      const bsModalRef = this.confirmService.show(isCorrect);
+        const title = isCorrect && this.pokemonSize === '大型'
+          ? `大型の${this.correctAnswer}のトレーナー`
+          : undefined;
+        if (title) {
+          this.titleBadgeService.setTitle(this.correctAnswer);
+        }
+        const bsModalRef = this.confirmService.show(isCorrect, title);
 
     bsModalRef.onHidden!.subscribe(() => {
       this.loadQuestion();
@@ -52,8 +63,10 @@ import { ConfirmService } from '../../shared/modal/confirm.service';
       this.data.subscribe((json: any) => {
         const randomIndex = Math.floor(Math.random() * json.length);
         const pokemon = json[randomIndex];
+        this.pokemonSize = pickRandomSize();
+        this.imageScale = SIZE_SCALES[this.pokemonSize];
         this.imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon['no']}.png`;
-        const generationIndex = this.getGenerationIndex(pokemon['no']);
+        const generationIndex = getGenerationIndex(pokemon['no']);
         this.backgroundUrl = this.backgroundImages[generationIndex];
         this.backgroundUrl = 'https://wallpaper.forfun.com/fetch/38/38c62201e6446dda29e0b1768ccc689f.jpeg';
         const correctAnswer = pokemon['name'];
@@ -90,17 +103,12 @@ import { ConfirmService } from '../../shared/modal/confirm.service';
       });
     }
 
-    getGenerationIndex(no: number): number {
-    if (no <= 151) return 0;
-    if (no <= 251) return 1;
-    if (no <= 386) return 2;
-    if (no <= 493) return 3;
-    if (no <= 649) return 4;
-    if (no <= 721) return 5;
-    return 6;
-    }
-
-    constructor(private fb: FormBuilder, private dataService: DataService, private confirmService: ConfirmService) {
+      constructor(
+        private fb: FormBuilder,
+        private dataService: DataService,
+        private confirmService: ConfirmService,
+        private titleBadgeService: TitleBadgeService
+     ) {
       this.form = this.fb.group({
         number: [null],
         name: [null],
@@ -113,5 +121,6 @@ import { ConfirmService } from '../../shared/modal/confirm.service';
 
       this.data = this.dataService.import();
       this.loadQuestion();   
+      this.titleBadgeService.restore();
     }
   }

@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
-import { AppRoutingModule } from "../app-routing.module";
+  import { Component, OnInit } from '@angular/core';
+  import { BgmService } from '../shared/bgm.service';
 
-@Component({
-  selector: 'app-pages',
-  templateUrl: './pages.component.html',
-  styleUrls: ['./pages.component.scss'],
-  
-})
-export class PagesComponent {
+  @Component({
+    selector: 'app-pages',
+    templateUrl: './pages.component.html',
+    styleUrls: ['./pages.component.scss'],
+  })
+  export class PagesComponent implements OnInit {
+    constructor(private bgmService: BgmService) {}
 
-}
+    ngOnInit(): void {
+      this.bgmService.init();
+    }
+  }

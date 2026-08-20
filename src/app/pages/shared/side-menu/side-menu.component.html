@@ -1,1 +1,12 @@
-<p>side-menu works!</p>
+  <nav class="side-menu">
+    <ul class="nav-list">
+      <li><a routerLink="/home" routerLinkActive="active">ホーム</a></li>
+      <li><a routerLink="/quiz" routerLinkActive="active">クイズ</a></li>
+      <li><a routerLink="/zukan" routerLinkActive="active">図鑑</a></li>
+    </ul>
+
+    <button type="button" class="bgm-toggle" (click)="toggleBgm()">
+      <ng-container *ngIf="isBgmPlaying$ | async; else bgmOff">🔊 BGM ON</ng-container>
+      <ng-template #bgmOff>🔈 BGM OFF</ng-template>
+    </button>
+  </nav>

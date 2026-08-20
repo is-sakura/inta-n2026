@@ -1,4 +1,10 @@
-<div [style.background-image]="'url(' + backgroundUrl + ')'" class="quiz-container">
+<div class="quiz-bg" [style.background-image]="'url(' + backgroundUrl + ')'"></div>
+
+<div class="quiz-container">
+
+
+<span *ngIf="badgeTitle$ | async as title" class="trainer-badge"> {{ title }}</span>
+
 
   <div *ngIf="isLoading" class="text-center">
       <div class="spinner-border" role="status">
@@ -8,8 +14,8 @@
 
   <!--画像-->
   <div class="quiz-question">    
-      <h2>Q1. {{ question }}</h2>
-      <img [src]="imageUrl" alt="なぞのポケモン">
+      <h2>{{ question }}</h2>
+      <img [src]="imageUrl" [style.width.px]="150 * imageScale" alt="なぞのポケモン">
   </div>
 
   <!--ヒント-->
@@ -35,17 +41,16 @@
   <!--答え-->
   <div class="quiz-answer">
     
-    <button type="button" [class]="'btn ' + color1 + ' mb-1 col-lg-3 answer'" (click)="register(answer1)">
+     <button type="button" [class]="'btn ' + color1 + ' mb-1 answer'" (click)="register(answer1)">
         {{ answer1 }}
     </button>
-
-    <button type="button" [class]="'btn ' + color2 + ' mb-1 col-lg-3 answer'" (click)="register(answer2)">
+     <button type="button" [class]="'btn ' + color2 + ' mb-1 answer'" (click)="register(answer2)">
         {{ answer2 }}
     </button>
-    <button type="button" [class]="'btn ' + color3 + ' mb-1 col-lg-3 answer'" (click)="register(answer3)">
+     <button type="button" [class]="'btn ' + color3 + ' mb-1 answer'" (click)="register(answer3)">
         {{ answer3 }}
     </button>
-    <button type="button" [class]="'btn ' + color4 + ' mb-1 col-lg-3 answer'" (click)="register(answer4)">
+     <button type="button" [class]="'btn ' + color4 + ' mb-1 answer'" (click)="register(answer4)">
         {{ answer4 }}
     </button>
 

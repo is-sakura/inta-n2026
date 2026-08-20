@@ -1,6 +1,8 @@
 
   <div class="text-center">
-    <p *ngIf="isCorrect" class="text-success">YES</p>
-    <p *ngIf="!isCorrect" class="text-danger">NO</p>
+    <img *ngIf="isCorrect" src="https://www.pokemon.co.jp/ex/xy/about/images/img_about_04_half_02.jpg" class="pokeball" alt="モンスターボール">
+    <p *ngIf="isCorrect" class="text-success">ゲット</p>
+    <p *ngIf="!isCorrect" class="text-danger">逃がした</p>
+    <p *ngIf="title" class="text-warning fw-bold">{{ title }}</p>
   </div>
 

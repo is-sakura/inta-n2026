@@ -6,13 +6,13 @@
     providedIn: 'root'
   })
   export class ConfirmService {
-    constructor(private bsModalService: BsModalService) {}
-
-    show(isCorrect: boolean): BsModalRef {
-    const bsModalRef = this.bsModalService.show(ConfirmComponent);
-    bsModalRef.content!.isCorrect = isCorrect;
-    return bsModalRef;
-  }
+       constructor(private bsModalService: BsModalService) {}
+       show(isCorrect: boolean, title?: string): BsModalRef {
+       const bsModalRef = this.bsModalService.show(ConfirmComponent);
+       bsModalRef.content!.isCorrect = isCorrect;
+       bsModalRef.content!.title = title;
+       return bsModalRef;
+     }
   }
 
 

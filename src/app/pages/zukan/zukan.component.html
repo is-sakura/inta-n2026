@@ -1,0 +1,19 @@
+  <div class="zukan-container">
+    <div class="region-tabs">
+      <button
+        *ngFor="let region of regions"
+        type="button"
+        [class.active]="region === selectedRegion"
+        (click)="selectRegion(region)">
+        {{ region }}
+      </button>
+    </div>
+
+    <ul class="pokemon-list">
+      <li *ngFor="let pokemon of filteredPokemon">
+        <span class="no">No.{{ pokemon.no }}</span>/
+        <span class="name">{{ pokemon.name }}</span>/
+        <span class="types">{{ pokemon.types.join('・') }}</span>
+      </li>
+    </ul>
+  </div>

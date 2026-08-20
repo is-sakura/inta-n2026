@@ -28,9 +28,18 @@ const routes: Routes = [
         path: 'quiz',
         component: QuizComponent,
       },
-
+      {
+        path: 'zukan',
+        loadChildren: () =>
+          import('./zukan/zukan.module').then((m) => m.ZukanModule),
+      },
+      {
+          path: 'home',
+          loadChildren: () =>
+            import('./home/home.module').then((m) => m.HomeModule),
+        },
     ],
-  }
+  },
 ];
 
 @NgModule({

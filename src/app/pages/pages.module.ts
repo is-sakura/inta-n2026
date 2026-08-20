@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ModalModule } from '../shared/modal/modal.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { PagesComponent } from './pages.component';
 import { PagesRoutingModule } from './pages-routing.module';
 import { HogeComponent } from './hoge/hoge.component';
 import { FugaComponent } from './fuga/fuga.component';
@@ -22,7 +22,8 @@ import { QuizComponent } from './quiz/quiz.component';
     PiyoComponent,
     HeaderComponent,
     SideMenuComponent,
-    QuizComponent  
+    QuizComponent,
+    PagesComponent,  
   ],
   imports: [
     CommonModule,

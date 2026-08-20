@@ -1,15 +1,14 @@
   .quiz-container {
-    background-size: cover;
-    background-position: center;
     min-height: 100vh;
     padding: 20px;
+    position: relative;
   }
 
   .quiz-question h2 {
     color: skyblue;
     -webkit-text-stroke: 1px rgb(251, 251, 251);
     font-size: 70px;
-    text-align: center;
+    text-align: left;
   }
 
     .quiz-info label {
@@ -25,7 +24,7 @@
 
     .quiz-answer {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(120px, auto));
     gap: 10px;
     margin-top: 20px;
   }
@@ -33,7 +32,32 @@
   .quiz-answer .answer {
     font-size: 28px;
     padding: 20px;
+     white-space: nowrap;
   }
+
+  .quiz-container {
+    position: relative;
+  }
+  .trainer-badge {
+    position: absolute;
+    top: 130px;
+    right: 12px;
+    font-size: 30px;
+    white-space: nowrap;
+    color: rgb(255, 170, 113);
+  }
+
+  .quiz-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+  }
+  
 
 
 
