@@ -1,0 +1,100 @@
+<div class="get-quiz-bg" [style.background-image]="'url(' + backgroundUrl + ')'"></div>
+
+
+  <div class="get-quiz-container">
+
+      <div *ngIf="isLoading" class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <!-- ゲット状況（進行中は常に表示） -->
+      <div class="caught-progress" *ngIf="!isLoading && stage !== 'finished'">
+        <span class="progress-label">ゲット：{{ caughtPokemon.length }} / 3</span>
+        <span class="caught-icon" *ngFor="let p of caughtPokemon">
+          <img [src]="p.imageUrl" [alt]="p.name">
+        </span>
+      </div>
+
+      <!-- 終了画面：3匹ゲットしたら表示される結果画面 -->
+      <div class="result-screen" *ngIf="stage === 'finished'">
+        <h2>3匹ゲットだぜ！</h2>
+        <div class="caught-list">
+          <div class="caught-card" *ngFor="let p of caughtPokemon">
+            <img [src]="p.imageUrl" [alt]="p.name">
+            <p>{{ p.name }}</p>
+          </div>
+        </div>
+        <button type="button" class="btn btn-primary" (click)="restart()">もう一度プレイする</button>
+      </div>
+
+      <ng-container *ngIf="!isLoading && stage !== 'finished'">
+
+        <!-- ① クイズ出題：4択でポケモンの名前を当てる -->
+        <div class="quiz-question" *ngIf="stage === 'question'">
+          <h2>{{ question }}</h2>
+          <img [src]="imageUrl" class="pokemon-image silhouette" alt="なぞのポケモン">
+          <div class="quiz-answer">
+            <button type="button" class="btn btn-info answer" (click)="selectAnswer(answer1)">{{ answer1 }}</button>
+            <button type="button" class="btn btn-danger answer" (click)="selectAnswer(answer2)">{{ answer2 }}</button>
+            <button type="button" class="btn btn-success answer" (click)="selectAnswer(answer3)">{{ answer3 }}</button>
+            <button type="button" class="btn btn-warning answer" (click)="selectAnswer(answer4)">{{ answer4 }}</button>
+          </div>
+        </div>
+
+        <!-- ② 多数決の人数入力：正解した場合のみここに進む -->
+        <div class="vote-input" *ngIf="stage === 'vote'" [formGroup]="voteForm">
+          <h3>正解！「{{ selectedAnswer }}」を選んだ人数を教えて！</h3>
+          <img [src]="imageUrl" class="pokemon-image" [alt]="correctAnswer">
+
+          <div class="vote-row">
+            <label>全体の人数：</label>
+            <input type="number" formControlName="totalCount" min="1">
+          </div>
+          <div class="vote-row">
+            <label>「{{ selectedAnswer }}」を選んだ人数：</label>
+            <input type="number" formControlName="votedCount" min="0">
+          </div>
+
+          <p class="rate-preview" *ngIf="voteForm.value.totalCount > 0">
+            ゲット期待値：{{ (voteForm.value.votedCount / voteForm.value.totalCount * 100) | number:'1.0-1' }}％
+          </p>
+          <p class="rate-hint" *ngIf="!canAttemptGet">
+            ※選んだ人数は0以上、全体の人数以下で入力してください
+          </p>
+
+          <button type="button" class="btn btn-primary" [disabled]="!canAttemptGet" (click)="attemptGet()">
+            モンスターボールを投げる！
+          </button>
+        </div>
+
+        <!-- ③ モンスターボールの演出：ゲット期待値の確率で判定中 -->
+        <div class="ball-stage" *ngIf="stage === 'ball'">
+          <div class="monster-ball" [class.shaking]="isBallShaking">
+            <div class="ball-top"></div>
+            <div class="ball-band"></div>
+            <div class="ball-bottom"></div>
+            <div class="ball-button"></div>
+          </div>
+          <p>ゲット判定中…（期待値 {{ expectedRate | number:'1.0-1' }}％）</p>
+        </div>
+
+        <!-- ④ 結果表示 -->
+        <div class="result-stage" *ngIf="stage === 'result'">
+          <ng-container *ngIf="!isCorrectSelection">
+            <h3>残念、こたえが違うよ…</h3>
+            <p>正解は「{{ correctAnswer }}」でした</p>
+          </ng-container>
+
+          <ng-container *ngIf="isCorrectSelection">
+            <h3 *ngIf="isGetSuccess">やった！「{{ correctAnswer }}」をゲットした！</h3>
+            <h3 *ngIf="isGetSuccess === false">あ！ボールから出てきてしまった…</h3>
+          </ng-container>
+
+          <button type="button" class="btn btn-secondary" (click)="next()">次の問題へ</button>
+        </div>
+
+      </ng-container>
+
+    </div>    

@@ -12,6 +12,7 @@ import { PiyoComponent } from './piyo/piyo.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { SideMenuComponent } from './shared/side-menu/side-menu.component';
 import { QuizComponent } from './quiz/quiz.component';
+import { GetQuizComponent } from './get-quiz/get-quiz.component';
 
 
 
@@ -23,7 +24,8 @@ import { QuizComponent } from './quiz/quiz.component';
     HeaderComponent,
     SideMenuComponent,
     QuizComponent,
-    PagesComponent,  
+    GetQuizComponent,
+    PagesComponent,
   ],
   imports: [
     CommonModule,

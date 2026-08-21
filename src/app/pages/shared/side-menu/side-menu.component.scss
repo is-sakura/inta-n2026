@@ -20,11 +20,13 @@
   }
 
   .nav-list a {
-    color: #e352b5;
+    color: #6c91ff;
     text-decoration: none;
     display: block;
     padding: 8px 12px;
     border-radius: 4px;
+    -webkit-text-stroke: 0.08px rgb(239, 233, 233);
+    font-size: 20px;
   }
 
   .nav-list a.active {

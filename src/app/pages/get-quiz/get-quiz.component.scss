@@ -1,0 +1,219 @@
+.get-quiz-container {
+  min-height: 100vh;
+  padding: 20px;
+  position: relative;
+}
+
+/* ===== ゲット進行状況バー ===== */
+.caught-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  font-size: 20px;
+  color: #fff;
+}
+
+.progress-label {
+  font-weight: bold;
+}
+
+.caught-icon img {
+  width: 40px;
+  height: 40px;
+}
+
+/* ===== クイズ出題 ===== */
+.quiz-question h2,
+.vote-input h3,
+.result-stage h3 {
+  color: rgb(255, 145, 203);
+  -webkit-text-stroke: 1px rgb(251, 251, 251);
+  font-size: 40px;
+}
+
+.pokemon-image {
+  width: 150px;
+  display: block;
+  margin: 10px 0;
+}
+
+.pokemon-image.silhouette {
+  filter: brightness(0);
+}
+
+.quiz-answer {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(120px, auto));
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.quiz-answer .answer {
+  font-size: 24px;
+  padding: 16px;
+  white-space: nowrap;
+}
+
+/* ===== 多数決の人数入力 ===== */
+.vote-input .vote-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.vote-input label {
+  color: #fff;
+  min-width: 220px;
+}
+
+.vote-input input {
+  width: 100px;
+  text-align: center;
+}
+
+.rate-preview {
+  font-size: 22px;
+  color: #ffd54f;
+  font-weight: bold;
+}
+
+.rate-hint {
+  color: #ff8a80;
+  font-size: 14px;
+}
+
+/* ===== モンスターボールの演出 ===== */
+.ball-stage {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.monster-ball {
+  width: 120px;
+  height: 120px;
+  position: relative;
+  margin: 0 auto 20px;
+}
+
+.ball-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: #ee1515;
+  border: 4px solid #222;
+  border-bottom: none;
+  border-radius: 60px 60px 0 0;
+  box-sizing: border-box;
+}
+
+.ball-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: #fff;
+  border: 4px solid #222;
+  border-top: none;
+  border-radius: 0 0 60px 60px;
+  box-sizing: border-box;
+}
+
+.ball-band {
+  position: absolute;
+  top: calc(50% - 4px);
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: #222;
+  z-index: 2;
+}
+
+.ball-button {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: calc(50% - 12px);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #fff;
+  border: 4px solid #222;
+  z-index: 3;
+}
+
+/* ボールが揺れる演出：ゲット判定の間、少し長めの3.5秒間揺らす */
+@keyframes ball-shake {
+  0%, 100% { transform: rotate(0deg); }
+  10% { transform: rotate(-22deg); }
+  20% { transform: rotate(22deg); }
+  30% { transform: rotate(-20deg); }
+  40% { transform: rotate(20deg); }
+  50% { transform: rotate(-16deg); }
+  60% { transform: rotate(16deg); }
+  70% { transform: rotate(-10deg); }
+  80% { transform: rotate(10deg); }
+  90% { transform: rotate(-4deg); }
+}
+
+.monster-ball.shaking {
+  animation: ball-shake 3.5s ease-in-out;
+}
+
+/* ===== 結果表示 ===== */
+.result-stage {
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* ===== 終了画面 ===== */
+.result-screen {
+  text-align: center;
+  color: #fff;
+  padding-top: 40px;
+}
+
+.result-screen h2 {
+  color: skyblue;
+  -webkit-text-stroke: 1px rgb(251, 251, 251);
+  font-size: 44px;
+  margin-bottom: 24px;
+}
+
+.caught-list {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.caught-card {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.caught-card img {
+  width: 120px;
+  height: 120px;
+}
+
+.caught-card p {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+  .get-quiz-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+  }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PagesComponent } from './pages.component';
 import { QuizComponent } from './quiz/quiz.component';
+import { GetQuizComponent } from './get-quiz/get-quiz.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,10 @@ const routes: Routes = [
       {
         path: 'quiz',
         component: QuizComponent,
+      },
+      {
+        path: 'get-quiz',
+        component: GetQuizComponent,
       },
       {
         path: 'zukan',

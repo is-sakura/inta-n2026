@@ -1,3 +1,5 @@
+  <div class="zukan-bg"></div>
+
   <div class="zukan-container">
     <div class="region-tabs">
       <button
@@ -11,6 +13,10 @@
 
     <ul class="pokemon-list">
       <li *ngFor="let pokemon of filteredPokemon">
+        <img
+          class="pokemon-image"
+          [src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' + pokemon.no + '.png'"
+          [alt]="pokemon.name">
         <span class="no">No.{{ pokemon.no }}</span>/
         <span class="name">{{ pokemon.name }}</span>/
         <span class="types">{{ pokemon.types.join('・') }}</span>
