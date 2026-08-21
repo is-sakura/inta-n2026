@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataService } from '../../shared/data.service';
 
-/** 画面がいまどの段階にあるかを表す */
 type GetQuizStage = 'question' | 'vote' | 'ball' | 'result' | 'finished';
 
 interface CaughtPokemon {
@@ -16,10 +15,10 @@ interface CaughtPokemon {
   styleUrls: ['./get-quiz.component.scss']
 })
 export class GetQuizComponent {
-  /** ゲットするポケモンの目標数（3匹で終了画面へ） */
   private readonly GET_TARGET = 3;
-  /** ボールが揺れる演出の時間（ミリ秒） */
   private readonly BALL_SHAKE_MS = 3500;
+  private readonly STORAGE_KEY = 'get-quiz-caught-pokemon';
+
 
   private allPokemon: any[] = [];
 
@@ -46,7 +45,11 @@ export class GetQuizComponent {
 
   caughtPokemon: CaughtPokemon[] = [];
 
+  
+
   constructor(private fb: FormBuilder, private dataService: DataService) {
+    this.caughtPokemon = this.loadCaughtFromStorage();  
+
     this.voteForm = this.fb.group({
       totalCount: [10, [Validators.required, Validators.min(1)]],
       votedCount: [0, [Validators.required, Validators.min(0)]]
@@ -55,11 +58,14 @@ export class GetQuizComponent {
     this.isLoading = true;
     this.dataService.import().subscribe((json: any) => {
       this.allPokemon = json;
+      if (this.caughtPokemon.length >= this.GET_TARGET) {  
+          this.stage = 'finished';
+          this.isLoading = false;
+        } else 
       this.loadQuestion();
     });
   }
 
-  /** 次の問題用に、ランダムなポケモンと4択の選択肢を作る */
   loadQuestion(): void {
     const json = this.allPokemon;
     const randomIndex = Math.floor(Math.random() * json.length);
@@ -88,7 +94,6 @@ export class GetQuizComponent {
     this.isLoading = false;
   }
 
-  /** 選択肢を選んだときの処理。正解なら投票入力へ、不正解ならその場で結果表示へ */
   selectAnswer(selected: string): void {
     this.selectedAnswer = selected;
     this.isCorrectSelection = selected === this.correctAnswer;
@@ -101,7 +106,6 @@ export class GetQuizComponent {
     }
   }
 
-  /** 「全体の人数」「選んだ人数」が正しく入力されているか */
   get canAttemptGet(): boolean {
     if (!this.voteForm.valid) {
       return false;
@@ -110,11 +114,7 @@ export class GetQuizComponent {
     return totalCount > 0 && votedCount >= 0 && votedCount <= totalCount;
   }
 
-  /**
-   * 多数決ゲットシステムの本体。
-   * (選んだ人数 ÷ 全体の人数) × 100 をゲット期待値（％）とし、
-   * その確率でゲット成功/失敗を判定する。
-   */
+
   attemptGet(): void {
     if (!this.canAttemptGet) {
       return;
@@ -135,6 +135,7 @@ export class GetQuizComponent {
 
       if (success) {
         this.caughtPokemon.push({ name: this.correctAnswer, imageUrl: this.imageUrl });
+        this.saveCaughtToStorage(); 
         if (this.caughtPokemon.length >= this.GET_TARGET) {
           this.stage = 'finished';
         }
@@ -150,10 +151,23 @@ export class GetQuizComponent {
     this.loadQuestion();
   }
 
-  /** 終了画面から、ゲット状況をリセットして再スタートする */
   restart(): void {
     this.caughtPokemon = [];
+    this.saveCaughtToStorage(); 
     this.loadQuestion();
   }
+  private saveCaughtToStorage(): void {
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.caughtPokemon));
+  }
+  private loadCaughtFromStorage(): CaughtPokemon[] {
+    const raw = localStorage.getItem(this.STORAGE_KEY);
+    if (!raw) {
+      return [];
+    }
+    return JSON.parse(raw);
+  }
+  
 }
+
+
 
